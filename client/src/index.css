@@ -1,0 +1,290 @@
+/* ============================================
+   GLOBAL RESET & FOUNDATION
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paper / ink */
+  --paper: #f5f1e8;
+  --paper-warm: #efe8db;
+  --ink: #14111c;
+  --ink-soft: #3b3547;
+  --ink-muted: #6b6478;
+  --ink-faint: #a39cab;
+
+  /* Signature duo */
+  --lime: #d4ff3f;
+  --lime-dark: #a8d400;
+  --lime-ghost: #eaf9b6;
+
+  --violet: #4b21c9;
+  --violet-deep: #2e1285;
+  --violet-soft: #e4dcfb;
+
+  --rose: #ff5f7e;
+  --rose-soft: #ffe0e6;
+
+  --teal: #0f9d9d;
+  --teal-soft: #d4f2f2;
+
+  --success-bg: #e2f7d2;
+  --success-fg: #2c6b12;
+  --error-bg: #ffe2e6;
+  --error-fg: #a51a3a;
+
+  /* Borders */
+  --line: #14111c;
+  --line-soft: rgba(20, 17, 28, 0.12);
+
+  /* Radii — sharp / geometric feel */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* Shadows — hard offset, no blur (editorial) */
+  --hard: 4px 4px 0 var(--ink);
+  --hard-sm: 3px 3px 0 var(--ink);
+  --hard-lg: 6px 6px 0 var(--ink);
+  --hard-lime: 4px 4px 0 var(--lime-dark);
+  --hard-violet: 4px 4px 0 var(--violet-deep);
+
+  font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Grain overlay for paper texture */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  background-image:
+    radial-gradient(rgba(20, 17, 28, 0.035) 1px, transparent 1px),
+    radial-gradient(rgba(20, 17, 28, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px, 22px 22px;
+  background-position: 0 0, 11px 11px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Big corner accents */
+body::before {
+  content: "";
+  position: fixed;
+  top: -140px;
+  right: -140px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: var(--lime);
+  z-index: -1;
+  opacity: 0.85;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -180px;
+  left: -180px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: var(--violet-soft);
+  z-index: -1;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  font-weight: 500;
+}
+
+/* ============================================
+   BUTTON SYSTEM — editorial / hard-offset
+   ============================================ */
+button {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 13px 22px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: var(--hard-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--hard);
+}
+
+button:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+  transform: none;
+  box-shadow: var(--hard-sm);
+}
+
+button.secondary {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: var(--hard-sm);
+}
+
+button.secondary:hover:not(:disabled) {
+  background: var(--lime);
+  box-shadow: var(--hard);
+}
+
+button.danger {
+  background: var(--rose-soft);
+  color: #9c1231;
+  border-color: var(--ink);
+  box-shadow: var(--hard-sm);
+}
+
+button.danger:hover:not(:disabled) {
+  background: var(--rose);
+  color: #fff;
+}
+
+button.small {
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0 var(--ink);
+  border-width: 1.5px;
+}
+
+button.small:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+button.link {
+  background: transparent;
+  color: var(--violet);
+  padding: 2px 4px;
+  border: none;
+  box-shadow: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--lime-dark);
+}
+
+button.link:hover {
+  background: transparent;
+  color: var(--violet-deep);
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   FORM CONTROLS — bold blocks
+   ============================================ */
+input,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--ink);
+  border-radius: var(--r-md);
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+input:focus,
+select:focus {
+  box-shadow: 4px 4px 0 var(--violet);
+  transform: translate(-1px, -1px);
+}
+
+input::placeholder {
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+label input,
+label select {
+  margin-top: 4px;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+/* ============================================
+   RESPONSIVE BASE
+   ============================================ */
+@media (max-width: 640px) {
+  #root {
+    padding: 14px;
+  }
+}
